@@ -1,4 +1,16 @@
 public class NextDayCalculator {
+    public static final int January = 1;
+    public static final int February = 2;
+    public static final int March = 3;
+    public static final int April = 4;
+    public static final int May = 5;
+    public static final int July = 7;
+    public static final int August = 8;
+    public static final int October = 10;
+    public static final int December = 12;
+    public static final int June = 6;
+    public static final int September = 9;
+    public static final int November = 11;
     private int day;
     private int month;
     private int year;
@@ -8,14 +20,37 @@ public class NextDayCalculator {
         this.month = month;
         this.year = year;
     }
+    public int getDay() {
+        return this.day;
+    }
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public String getNextDay () {
-        if (this.day < checkDayOfMonth()) {
+        if (this.day < lastDayOfMonth()) {
             this.day++;
-        } else if (this.day == checkDayOfMonth() && this.month < 12) {
+        } else if (this.day >= lastDayOfMonth() && this.month < 12) {
             this.day = 1;
             this.month++;
-        } else if (this.day == checkDayOfMonth() && this.month == 12) {
+        } else if (this.day >= lastDayOfMonth() && this.month == 12) {
             this.day = 1;
             this.month = 1;
             this.year++;
@@ -23,25 +58,25 @@ public class NextDayCalculator {
         return "Next day is: " + this.day + "/" + this.month + "/" + this.year;
     }
 
-    public int checkDayOfMonth () {
+    public int lastDayOfMonth () {
         int dayOfMonth;
         switch (this.month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
+            case January:
+            case March:
+            case May:
+            case July:
+            case August:
+            case October:
+            case December:
                 dayOfMonth = 31;
                 break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
+            case April:
+            case June:
+            case September:
+            case November:
                 dayOfMonth = 30;
                 break;
-            case 2:
+            case February:
                 if (isLeapYear()) {
                     dayOfMonth = 29;
                     break;

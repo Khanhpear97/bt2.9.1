@@ -1,56 +1,42 @@
 package src;
 
 public class NextDayCalculator implements MonthOfYear {
-    private int day;
-    private int month;
-    private int year;
 
-    public NextDayCalculator(int day, int month, int year) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
-    public int getDay() {
-        return this.day;
-    }
-
-    public int getMonth() {
-        return this.month;
-    }
-
-    public int getYear() {
-        return this.year;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getNextDay () {
-        if (this.day < lastDayOfMonth()) {
-            this.day++;
-        } else if (this.day >= lastDayOfMonth() && this.month < 12) {
-            this.day = 1;
-            this.month++;
-        } else if (this.day >= lastDayOfMonth() && this.month == 12) {
-            this.day = 1;
-            this.month = 1;
-            this.year++;
+    public static String getNextDay (int day, int month, int year) {
+        if (day < 1 || day > 31) {
+            return "Data day not exactly";
         }
-        return "Next day is: " + this.day + "/" + this.month + "/" + this.year;
+
+        if (month < 1 || month > 12) {
+            return "Data day not exactly";
+        }
+
+        if (year < 0) {
+            return "Data day not exactly";
+        }
+
+        if (day > 28 && month == 2 && !isLeapYear(year)) {
+            return "Data day not exactly";
+        } else if (day > 29 && month == 2 && isLeapYear(year)) {
+            return "Data day not exactly";
+        }
+
+        if (day < lastDayOfMonth(month, year)) {
+            day++;
+        } else if (day == lastDayOfMonth(month, year) && month < 12) {
+            day = 1;
+            month++;
+        } else if (day == lastDayOfMonth(month, year) && month == 12) {
+            day = 1;
+            month = 1;
+            year++;
+        }
+        return "Next day is: " + day + "/" + month + "/" + year;
     }
 
-    public int lastDayOfMonth () {
+    public static int lastDayOfMonth (int month, int year) {
         int dayOfMonth;
-        switch (this.month) {
+        switch (month) {
             case January:
             case March:
             case May:
@@ -67,7 +53,7 @@ public class NextDayCalculator implements MonthOfYear {
                 dayOfMonth = 30;
                 break;
             case February:
-                if (isLeapYear()) {
+                if (isLeapYear(year)) {
                     dayOfMonth = 29;
                     break;
                 }
@@ -79,12 +65,12 @@ public class NextDayCalculator implements MonthOfYear {
         return dayOfMonth;
     }
 
-    public Boolean isLeapYear () {
-        boolean isDivisibleBy4 = this.year % 4 == 0;
+    public static Boolean isLeapYear (int year) {
+        boolean isDivisibleBy4 = year % 4 == 0;
         if (isDivisibleBy4) {
-            boolean isDivisibleBy100 = this.year % 100 == 0;
+            boolean isDivisibleBy100 = year % 100 == 0;
             if (isDivisibleBy100) {
-                boolean isDivisibleBy400 = this.year % 400 == 0;
+                boolean isDivisibleBy400 = year % 400 == 0;
                 if (isDivisibleBy400) {
                     return true;
                 } else {

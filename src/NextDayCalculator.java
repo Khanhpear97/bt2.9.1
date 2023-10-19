@@ -1,3 +1,5 @@
+package src;
+
 public class NextDayCalculator {
     public static final int January = 1;
     public static final int February = 2;

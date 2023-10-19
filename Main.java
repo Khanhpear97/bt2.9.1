@@ -1,3 +1,5 @@
+import src.NextDayCalculator;
+
 import java.util.Scanner;
 
 public class Main {
